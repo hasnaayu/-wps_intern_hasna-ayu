@@ -13,17 +13,32 @@
             <div class="row m-4">
                 @foreach ($logs as $log)
                     <div class="col-lg-4 col-6">
-                        <div class="card card-custom gutter-b base-border bg-primary-o-15 detail cursor-pointer"
-                            data-toggle="modal" data-target="#modal_task" data-id={{ $log->id }}>
-                            <div class="card-body base-text font-weight-boldest">
-                                <div class="display-3 mb-3">
-                                    {{ date('j M Y', strtotime($log->date)) }}
+                        @if ($log->status == 'pending')
+                            <div class="card card-custom gutter-b secondary-border bg-secondary-o-15 detail cursor-pointer"
+                                data-toggle="modal" data-target="#modal_task" data-id={{ $log->id }}>
+                                <div class="card-body text-secondary font-weight-boldest">
+                                    <div class="display-3 mb-3">
+                                        {{ date('j M Y', strtotime($log->date)) }}
+                                    </div>
+                                    <h5>
+                                        {{ $log->user->name }}
+                                    </h5>
                                 </div>
-                                <h5>
-                                    {{ $log->user->name }}
-                                </h5>
                             </div>
-                        </div>
+                        @else
+                            <div class="card card-custom gutter-b {{ $log->status == 'approved' ? 'base-border' : 'danger-border' }} {{ $log->status == 'approved' ? 'bg-primary-o-15' : 'bg-danger-o-15' }} detail cursor-pointer"
+                                data-toggle="modal" data-target="#modal_task" data-id={{ $log->id }}>
+                                <div
+                                    class="card-body {{ $log->status == 'approved' ? 'base-text' : 'text-danger' }} font-weight-boldest">
+                                    <div class="display-3 mb-3">
+                                        {{ date('j M Y', strtotime($log->date)) }}
+                                    </div>
+                                    <h5>
+                                        {{ $log->user->name }}
+                                    </h5>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </div>

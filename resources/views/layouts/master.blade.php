@@ -65,6 +65,15 @@ License: You must have a valid license purchased only from themeforest(the above
             border: 1px solid #0000FF !important;
         }
 
+        .secondary-border {
+            border: 1px solid #444444 !important;
+        }
+
+
+        .danger-border {
+            border: 1px solid #ff0000 !important;
+        }
+
         .bg-primary {
             background-color: #0000FF !important;
         }
