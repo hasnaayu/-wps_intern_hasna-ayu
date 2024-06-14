@@ -87,6 +87,7 @@
                     </table>
                 </table>
             </div>
+            
             <div class="col-12 d-flex flex-row justify-content-end mt-4">
                 <button type="reset" class="btn btn-danger mr-2">Batal</button>
                 <button type="submit" class="btn btn-primary mr-2 add_log">Simpan</button>
