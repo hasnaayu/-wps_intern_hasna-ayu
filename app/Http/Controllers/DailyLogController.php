@@ -15,10 +15,12 @@ class DailyLogController extends Controller
         $fromdate = $request->start_date;
         $todate = $request->end_date;
         if ($request->start_date != '') {
-            $logs = DailyLog::whereBetween('date', [$fromdate, $todate])
+            $logs = DailyLog::where('user_id', auth()->user()->id)
+                ->whereBetween('date', [$fromdate, $todate])
                 ->get();
         } else {
-            $logs = DailyLog::get();
+            $logs = DailyLog::where('user_id', auth()->user()->id)
+                ->get();
         }
         return view('pages.daily_log.index', ['logs' => $logs, 'title' => 'Daily Log', 'desc' => 'Daily Log']);
     }
@@ -145,5 +147,4 @@ class DailyLogController extends Controller
 
         return redirect('/dashboard/log/check-log')->with('success', 'Daily log berhasil ditolak!');
     }
-
 }

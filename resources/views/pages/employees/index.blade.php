@@ -16,9 +16,11 @@
                     <a href="/dashboard/employee" class="ml-2"><span><i class="fas fa-times text-danger"></i></span></a>
                 @endif
             </div>
-            <a href="/dashboard/employee/create" class="btn btn-light-primary font-weight-bolder">
-                <i class="fas fa-plus mr-2"></i>
-                Tambah Data Karyawan</a>
+            @can('manage-employees')
+                <a href="/dashboard/employee/create" class="btn btn-light-primary font-weight-bolder">
+                    <i class="fas fa-plus mr-2"></i>
+                    Tambah Data Karyawan</a>
+            @endcan
         </div>
 
         <div class="my-5">
@@ -37,7 +39,9 @@
                             <th>E-Mail</th>
                             <th>Posisi</th>
                             <th>Status</th>
-                            <th>Tindakan</th>
+                            @can('manage-employees')
+                                <th>Tindakan</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -51,24 +55,26 @@
                                 <td
                                     class="font-weight-boldest {{ $user->is_active == 0 ? 'text-danger' : 'text-success' }}">
                                     {{ $user->is_active == 1 ? 'Aktif' : 'Nonaktif' }}</td>
-                                <td>
-                                    <div class="d-flex flex-row">
-                                        <a href="/dashboard/employee/edit/{{ $user->id }}" class="mr-6"
-                                            data-toggle="tooltip" title="Edit">
-                                            <i class="fas fa-edit text-primary"></i>
-                                        </a>
-                                        <div class="change_status cursor-pointer mr-6" data-id="{{ $user->id }}"
-                                            data-status="{{ $user->is_active }}" data-toggle="tooltip"
-                                            title="{{ $user->is_active == 1 ? 'nonaktifkan' : 'aktifkan' }}">
-                                            <i
-                                                class="fas fa-power-off {{ $user->is_active == 1 ? 'text-secondary' : 'text-success' }}"></i>
+                                @can('manage-employees')
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <a href="/dashboard/employee/edit/{{ $user->id }}" class="mr-6"
+                                                data-toggle="tooltip" title="Edit">
+                                                <i class="fas fa-edit text-primary"></i>
+                                            </a>
+                                            <div class="change_status cursor-pointer mr-6" data-id="{{ $user->id }}"
+                                                data-status="{{ $user->is_active }}" data-toggle="tooltip"
+                                                title="{{ $user->is_active == 1 ? 'nonaktifkan' : 'aktifkan' }}">
+                                                <i
+                                                    class="fas fa-power-off {{ $user->is_active == 1 ? 'text-secondary' : 'text-success' }}"></i>
+                                            </div>
+                                            <div class="delete_employee cursor-pointer" data-id="{{ $user->id }}"
+                                                data-toggle="tooltip" title="Hapus permanen">
+                                                <i class="fas fa-trash text-danger"></i>
+                                            </div>
                                         </div>
-                                        <div class="delete_employee cursor-pointer" data-id="{{ $user->id }}"
-                                            data-toggle="tooltip" title="Hapus permanen">
-                                            <i class="fas fa-trash text-danger"></i>
-                                        </div>
-                                    </div>
-                                </td>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>

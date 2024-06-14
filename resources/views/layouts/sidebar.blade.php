@@ -48,13 +48,15 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ Request::url() == url('/dashboard/employee') ? 'menu-item-active' : '' }}"
-                    aria-haspopup="true">
-                    <a href="/dashboard/employee" class="menu-link">
-                        <i class="menu-icon fas fa-users"></i>
-                        <span class="menu-text">Manajemen Karyawan</span>
-                    </a>
-                </li>
+                @if (auth()->user()->id == 1)
+                    <li class="menu-item {{ Request::url() == url('/dashboard/employee') ? 'menu-item-active' : '' }}"
+                        aria-haspopup="true">
+                        <a href="/dashboard/employee" class="menu-link">
+                            <i class="menu-icon fas fa-users"></i>
+                            <span class="menu-text">Manajemen Karyawan</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="menu-item {{ Request::url() == url('/dashboard/log') ? 'menu-item-active' : '' }}"
                     aria-haspopup="true">
@@ -64,13 +66,15 @@
                     </a>
                 </li>
 
-                <li class="menu-item {{ Request::url() == url('/dashboard/log/check-log') ? 'menu-item-active' : '' }}"
-                    aria-haspopup="true">
-                    <a href="/dashboard/log/check-log" class="menu-link">
-                        <i class="menu-icon fas fa-check"></i>
-                        <span class="menu-text">Daily Log Checking</span>
-                    </a>
-                </li>
+                @if (auth()->user()->id == 1 || auth()->user()->id == 2 || auth()->user()->id == 3)
+                    <li class="menu-item {{ Request::url() == url('/dashboard/log/check-log') ? 'menu-item-active' : '' }}"
+                        aria-haspopup="true">
+                        <a href="/dashboard/log/check-log" class="menu-link">
+                            <i class="menu-icon fas fa-check"></i>
+                            <span class="menu-text">Daily Log Checking</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="menu-item menu-item-submenu {{ Request::url() == url('/dashboard/logout') ? 'menu-item-active' : '' }}""
                     aria-haspopup="true">

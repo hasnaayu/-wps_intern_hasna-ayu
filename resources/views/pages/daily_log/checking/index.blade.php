@@ -36,8 +36,9 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-row">
-                                        <a class="mr-6 detail" id="detail_btn" data-toggle="tooltip" title="Detail"
-                                            style="cursor: pointer" data-id={{ $log->id }}>
+                                        <a class="mr-6 detail" data-toggle="modal" data-target="#modal_task"
+                                            data-toggle="tooltip" title="Detail" style="cursor: pointer"
+                                            data-id={{ $log->id }}>
                                             <i class="fas fa-eye text-warning"></i>
                                         </a>
                                         <a href="/dashboard/log/accept-log/{{ $log->id }}" class="mr-6"
@@ -157,10 +158,6 @@
             var search_val = $("input[name='search_field']").val();
             window.location.href =
                 `/dashboard/log?keyword=${search_val}`;
-        })
-
-        $('#detail_btn').click(function(e) {
-            $('#modal_task').modal('show');
         })
 
 

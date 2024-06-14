@@ -23,6 +23,7 @@ Route::prefix('dashboard')->namespace('App\Http\Controllers')->name('dashboard.'
             ['middleware' => ['auth']],
             function () {
                 Route::get('/', 'DashboardController@index');
+                Route::post('/store', 'DashboardController@monitor');
                 Route::get('/create', 'DashboardController@create');
                 Route::get('/logout', 'AuthController@logout')->name('logout');
 

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('contents')
-    <form class="form content-padding" method="POST" id="add_log" action="{{ url('/dashboard/log/store') }}"
+    <form class="form content-padding" method="POST" id="add_log" action="{{ url('/dashboard/store') }}"
         enctype="multipart/form-data">
         @csrf
 

@@ -2,7 +2,7 @@
 @section('contents')
     <div class="col-lg-12 mt-40">
         <div class="card card-custom mt-5">
-            @if (auth()->user()->id != 4 || auth()->user()->id != 5)
+            @if (auth()->user()->id == 1 || auth()->user()->id == 2 || auth()->user()->id == 3)
                 <div class="col-4 my-4">
                     <a href="/dashboard/create" class="btn btn-light-primary font-weight-bolder">
                         <i class="fas fa-plus mr-2"></i>
@@ -14,7 +14,7 @@
                 @foreach ($logs as $log)
                     <div class="col-lg-4 col-6">
                         <div class="card card-custom gutter-b base-border bg-primary-o-15 detail cursor-pointer"
-                            id="detail_btn" data-id={{ $log->id }}>
+                            data-toggle="modal" data-target="#modal_task" data-id={{ $log->id }}>
                             <div class="card-body base-text font-weight-boldest">
                                 <div class="display-3 mb-3">
                                     {{ date('j M Y', strtotime($log->date)) }}
@@ -66,10 +66,6 @@
 @endsection
 @section('additional_scripts')
     <script>
-        $('#detail_btn').click(function(e) {
-            $('#modal_task').modal('show');
-        })
-
         $('.detail').click(function() {
             var id = $(this).attr('data-id');
             $.ajax({
@@ -103,6 +99,14 @@
                     });
                 }
             });
+        });
+
+        $('.close_btn').on('click', function() {
+            window.location.reload();
+        });
+
+        $('#modal_task').on('hidden.bs.modal', function() {
+            window.location.reload();
         });
     </script>
 @endsection

@@ -6,15 +6,11 @@
     <!--begin::Notice-->
     <div class="col-lg-12 mt-40">
         <div class="col-4">
-            <div class="content-padding d-flex justify-content-start align-items-center mb-3">
-                <div class="input-group date" id="kt_datetimepicker_2" data-target-input="nearest">
-                    <div class="input-group-prepend" data-target="#kt_datetimepicker_2" data-toggle="datetimepicker">
-                        <span class="input-group-text" style="background-color: transparent">
-                            <i class="ki ki-calendar base_color"></i>
-                        </span>
-                    </div>
-                    <input type="text" class="form-control-datetime datetimepicker-input" placeholder="Select date range"
-                        data-target="#kt_datetimepicker_2" name="date" required />
+            <div class="d-flex flex-row mb-4">
+                <div class="input-icon" id="kt_daterangepicker_2">
+                    <input style="background-color: transparent" type="text" class="form-control"
+                        placeholder="Select date range" />
+                    <span><i class="ki ki-calendar icon-md text-primary"></i></span>
                 </div>
                 @if (request()->get('start_date') != null)
                     <a href="/dashboard/log"><span><i
@@ -58,8 +54,9 @@
                                 </td>
                                 <td>
                                     <div class="d-flex flex-row">
-                                        <a class="mr-6 detail" id="detail_btn" data-toggle="tooltip" title="Detail"
-                                            style="cursor: pointer" data-id={{ $log->id }}>
+                                        <a class="mr-6 detail" data-toggle="modal" data-target="#modal_task"
+                                            data-toggle="tooltip" title="Detail" style="cursor: pointer"
+                                            data-id={{ $log->id }}>
                                             <i class="fas fa-eye text-warning"></i>
                                         </a>
                                         <div class="delete_log cursor-pointer" data-id="{{ $log->id }}"
@@ -115,6 +112,39 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script>
         let _token = $('meta[name="csrf-token"]').attr('content');
+        var start_date = '';
+        var end_date = '';
+        let searchParams = new URLSearchParams(window.location.search); //how to get url object
+        if (searchParams.get('start_date') || searchParams.get('end_date')) { //access query start and end date
+            var start_val = moment(searchParams.get('start_date'));
+            var end_val = moment(searchParams.get('end_date'));
+            start_date = searchParams.get('start_date'); //parse to date
+            end_date = searchParams.get('end_date');
+            console.log(start_date);
+            $('#kt_daterangepicker_2 .form-control').val(start_val.format('D MMMM YYYY') + ' - ' + end_val.format(
+                'D MMMM YYYY'));
+        }
+        // input group and left alignment setup
+        $('#kt_daterangepicker_2').daterangepicker({
+            buttonClasses: ' btn',
+            applyClass: 'btn-primary',
+            cancelClass: 'btn-secondary'
+        }, function(start, end, label) {
+            start_date = start.format('YYYY-MM-DD');
+            end_date = end.format('YYYY-MM-DD');
+            $('#kt_daterangepicker_2 .form-control').val(start.format('D MMMM YYYY') + ' - ' + end.format(
+                'D MMMM YYYY'));
+            $('#kt_daterangepicker_2 .form-control').focus();
+        });
+
+        //cari
+        $('#kt_daterangepicker_2').on('keypress', function(e) {
+            if (e.which === 13) {
+                window.location.href =
+                    `/dashboard/log?start_date=${start_date}&end_date=${end_date}`;
+            }
+        });
+
         $(".delete_log").click(function(e) {
             var id_log = $(this).attr('data-id');
             Swal.fire({
@@ -164,22 +194,6 @@
                 }
             });
         });
-        $("input[name='search_field']").keyup(function(e) {
-            if (e.keyCode == 13) {
-                var search_val = $("input[name='search_field']").val();
-                window.location.href =
-                    `/dashboard/log?keyword=${search_val}`;
-            }
-        });
-        $('#search_btn').click(function(e) {
-            var search_val = $("input[name='search_field']").val();
-            window.location.href =
-                `/dashboard/log?keyword=${search_val}`;
-        })
-
-        $('#detail_btn').click(function(e) {
-            $('#modal_task').modal('show');
-        })
 
         $('.detail').click(function() {
             var id = $(this).attr('data-id');
