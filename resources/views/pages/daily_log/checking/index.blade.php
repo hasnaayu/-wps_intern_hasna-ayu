@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Tindakan</th>
                         </tr>
@@ -25,6 +26,7 @@
                         @foreach ($logs as $log)
                             <tr>
                                 <td>{{ date('j M Y', strtotime($log->date)) }}</td>
+                                <td>{{ $log->user->name }}</td>
                                 <td>
                                     @if ($log->status == 'pending')
                                         <i class="fas fa-clock" data-toggle="tooltip" title="Pending"></i>
