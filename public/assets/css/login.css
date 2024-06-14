@@ -1,0 +1,58 @@
+.login.login-4 .login-signin,
+.login.login-4 .login-signup,
+.login.login-4 .login-forgot {
+    display: none; }
+
+.login.login-4.login-signin-on .login-signup {
+    display: none; }
+
+.login.login-4.login-signin-on .login-signin {
+    display: block; }
+
+.login.login-4.login-signin-on .login-forgot {
+    display: none; }
+
+.login.login-4.login-signup-on .login-signup {
+    display: block; }
+
+.login.login-4.login-signup-on .login-signin {
+    display: none; }
+
+.login.login-4.login-signup-on .login-forgot {
+    display: none; }
+
+.login.login-4.login-forgot-on .login-signup {
+    display: none; }
+
+.login.login-4.login-forgot-on .login-signin {
+    display: none; }
+
+.login.login-4.login-forgot-on .login-forgot {
+    display: block; }
+
+.login.login-4 .login-form {
+    width: 100%;
+    max-width: 500px; }
+
+@media (max-width: 575.98px) {
+    .login.login-4 .login-form {
+        width: 100%;
+        max-width: 100%; } }
+/*.border-theme {*/
+/*    border: 1px #0000FF !important;*/
+/*}*/
+
+.border-primary:nth-child(1) {
+    border-color: #0000FF !important;
+}
+
+.border-primary:nth-child(2) {
+    border-color: #0000FF !important;
+}
+
+.border-primary:nth-child(3) {
+    border-color: #0000FF !important;
+}
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #0000FF !important;
+}
